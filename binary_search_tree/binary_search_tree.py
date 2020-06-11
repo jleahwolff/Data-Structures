@@ -1,3 +1,4 @@
+
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -17,38 +18,58 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        if value > self.value:
-            if self.right is None:
-                self.right = BinarySearchTree(value)
-            else:
+        if self.value is None:
+            print("if value is none")
+            self.value = value
+
+        elif value >= self.value:
+            if self.right:
+                print("elif.if")
                 self.right.insert(value)
-        else:
-            if self.left is None:
-                self.left = BinarySearchTree(value)
             else:
+                print("elif.else")
+                self.right = BinarySearchTree(value)
+        else:
+            if self.left:
+                print("else.if")
                 self.left.insert(value)
+            else:
+                print("else.else")
+                self.left = BinarySearchTree(value)
+
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
         if self.value == target:
             return True
-        else:
-            if target > self.value and self.right is not None:
+        if target > self.value:
+            if self.left is not None:
+                return self.left.contains(target)
+        elif self.value > target:
+            if self.right is not None:
                 return self.right.contains(target)
-            else:
-                if self.left is not None:
-                    return self.left.contains(target)
-        return False
-
+        else:
+            return False
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
 
+        if self.right == None:
+            return self.value
+        else:
+            return self.right.get_max()
+        
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        #recursively apply a function to both left and right as well as the base value
+        fn(self.value)
+        if self.right.value is not None:
+            self.right.for_each(fn)
+        if self.left.value is not None:
+            self.left.for_each(fn)
+
+
 
     # Part 2 -----------------------
 

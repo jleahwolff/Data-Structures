@@ -201,4 +201,3 @@ class Stack:
             return self.head.get_value()
 
 S = Stack()
-
